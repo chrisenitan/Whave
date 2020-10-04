@@ -1,6 +1,6 @@
 {
     "name": "WhatsApp Web Theme Timer",
-    "permissions": ["declarativeContent", "storage", "activeTab"],
+    "permissions": ["activeTab", "declarativeContent", "storage"],
     "version": "1.0",
     "description": "A simple extemsion to change the theme of whatsapp web between dark and light mode accoridng to the time of they day",
     "background": {

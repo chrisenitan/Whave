@@ -11,12 +11,20 @@ chrome.runtime.onInstalled.addListener(function() {
               actions: [new chrome.declarativeContent.ShowPageAction()]
         }]);
       });
-
-
- 
+      
+      
       
   });
 
 
-  
+
+
+/* 
+  	//get the current time 
+	var time = new Date();
+	let check = time.getHours(); 
+	let stamp = `${check}:${time.getMinutes()}`;
+
+	lastTry.innerHTML=stamp;
+ */
 

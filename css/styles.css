@@ -1,13 +1,31 @@
 body{
-    height: 300px;
+    height: auto;
     width: 150px;
+    padding:5px;
     background-color: #fff;
     margin:auto;
     text-align: center;
+    color: #fff;
 }
-
-button {
-      height: 30px;
-      width: auto;
-      outline: none;
-    }
+#main{
+background-color: #192027;
+max-width: 100%;
+margin: auto;
+border-radius:5px;
+height: auto;
+padding:10px;
+}
+#nextSwitch {
+  height: auto;
+  width: auto;
+  outline: none;
+  background-color: #097b71;
+  outline: none;
+  border: none;
+  padding: 3px;
+  border-radius:3px;
+}
+#nextSwitchTime{
+  color: #47f6f6;
+  font-size:14px;
+}
