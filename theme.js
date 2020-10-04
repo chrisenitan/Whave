@@ -19,23 +19,33 @@ Disclaimer: This is not a hack, if you do not know what's happening here, feel f
 */
 
 
-/* window.addEventListener("click", function() {
+window.addEventListener("click", function() {
 
 	//get the current time 
 	var time = new Date();
 	let check = time.getHours(); 
 	let stamp = `${check}:${time.getMinutes()}`;
+	//let lastTry = document.getElementById('lastTry');
 	
 	//check if the time is 8pm[20]: Feel free to change this to your tune.
 	//This changes to dark mode from 8pm to 7am
 	if(check >= 20 || check <= 7){
 	document.querySelector(".web").setAttribute("class", "web dark");
 	console.log(`Dark mode triggered at ${stamp}`);
+	//lastTry.innerHTML=stamp;
 	}
 	else{
 	document.querySelector(".web").setAttribute("class", "web");
 	console.log(`Dark mode not triggered. Tried at ${stamp}`);
+	//lastTry.innerHTML=stamp;
 	}	
 
-}); */
- 
+}); 
+
+
+	//get the current time 
+	var time = new Date();
+	let check = time.getHours(); 
+	let stamp = `${check}:${time.getMinutes()}`;
+	let lastTry = document.getElementById('lastTry');
+	lastTry.innerHTML=stamp;
