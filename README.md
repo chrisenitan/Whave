@@ -8,4 +8,4 @@ A time-based theme changer for WhatsApp web.
 **Planned**
 - Support custom start and end time for theme switches
 - Support Firefox
-- Add to Chrome webstore 
+- Add to webstore 

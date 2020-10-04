@@ -29,3 +29,16 @@ padding:10px;
   color: #47f6f6;
   font-size:14px;
 }
+.web{
+  display: none;
+}
+input{
+  color: #00ff08;
+  width: 80%;
+  border: none;
+  outline: none;
+  background-color: #283747;
+  border-radius:3px;
+  margin-top:5px;
+  text-align: center;
+}

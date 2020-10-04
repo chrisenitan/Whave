@@ -1,23 +1,30 @@
-/*
-https://github.com/chrisenitan/Whave
-*/
+//https://github.com/chrisenitan/Whave
+
+
+let switchTheme = (req) =>{
+
+if(req != undefined){console.log(req)}
+
+		//get the current time 
+		var time = new Date();
+		let hour = time.getHours(); 
+		let stampTime = `${hour}:${time.getMinutes()}`;
+	
+		//This changes to dark mode from 8pm to 7am
+		if(hour >= 20 || hour <= 7){
+		document.querySelector(".web").setAttribute("class", "web dark");
+		console.log(`Dark mode triggered at ${stampTime}`);
+		}
+		else{
+		document.querySelector(".web").setAttribute("class", "web");
+		console.log(`Light mode triggered at ${stampTime}`);
+		}	
+}
+
 
 window.addEventListener("click", function() {
 
-	//get the current time 
-	var time = new Date();
-	let hour = time.getHours(); 
-	let stampTime = `${hour}:${time.getMinutes()}`;
-
-	//This changes to dark mode from 8pm to 7am
-	if(hour >= 20 || hour <= 7){
-	document.querySelector(".web").setAttribute("class", "web dark");
-	console.log(`Dark mode triggered at ${stampTime}`);
-	}
-	else{
-	document.querySelector(".web").setAttribute("class", "web");
-	console.log(`Dark mode not triggered. Tried at ${stampTime}`);
-	}	
+switchTheme()
 
 });  
 
@@ -25,15 +32,29 @@ window.addEventListener("click", function() {
 var time = new Date();
 let currentHour = time.getHours(); 
 
-if(currentHour < 20){
-	var nextSwitchHour = 20 - currentHour
+if(currentHour >= 20 || currentHour <= 7){
+	document.getElementById('nextSwitchTime').innerHTML="Light mode will begin at 7am";
 }
 else{
-	var nextSwitchHour = currentHour - 31
+	document.getElementById('nextSwitchTime').innerHTML="Dark mode will begin at 8pm";
 }
-if(nextSwitchHour == 1){var hourEn = "hour"}else{var hourEn = "hours"}
 
-document.getElementById('nextSwitchTime').innerHTML=`${nextSwitchHour}${hourEn}`;
+document.getElementById('nextSwitch').addEventListener("click", function(){
+
+	//considered using declarativeContent but no idea how sync works yet
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		chrome.tabs.executeScript(
+			tabs[0].id,
+			{code: 'switchTheme()'});
+	  });
+
+})
+
+
+
+   
+
+
 
 
 
