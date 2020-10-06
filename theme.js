@@ -1,4 +1,5 @@
 //https://github.com/chrisenitan/Whave
+//https://developer.chrome.com/extensions/getstarted
 
 
 let switchTheme = (req) =>{
@@ -13,11 +14,11 @@ if(req != undefined){console.log(req)}
 		//This changes to dark mode from 8pm to 7am
 		if(hour >= 20 || hour <= 7){
 		document.querySelector(".web").setAttribute("class", "web dark");
-		console.log(`Dark mode triggered at ${stampTime}`);
+		console.log(`Dark mode triggered at ${stampTime}. ${req}`);
 		}
 		else{
 		document.querySelector(".web").setAttribute("class", "web");
-		console.log(`Light mode triggered at ${stampTime}`);
+		console.log(`Light mode triggered at ${stampTime}. ${req}`);
 		}	
 }
 
@@ -45,7 +46,7 @@ document.getElementById('nextSwitch').addEventListener("click", function(){
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		chrome.tabs.executeScript(
 			tabs[0].id,
-			{code: 'switchTheme()'});
+			{code: 'switchTheme("test")'});
 	  });
 
 })
