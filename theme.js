@@ -5,6 +5,7 @@
 let switchTheme = (req) =>{
 
 if(req != undefined){console.log(req)}
+var req = req
 
 		//get the current time 
 		var time = new Date();

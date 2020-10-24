@@ -1,6 +1,6 @@
 body{
     height: auto;
-    width: 150px;
+    width: 170px;
     padding:5px;
     background-color: #fff;
     margin:auto;
@@ -34,10 +34,23 @@ padding:10px;
 }
 input{
   color: #00ff08;
-  width: 80%;
+  width: 90%;
+  height: 20px;
   border: none;
   outline: none;
-  background-color: #283747;
+  background-color: #283b4f;
+  border-radius:3px;
+  margin-top:5px;
+  text-align: center;
+}
+button{
+  color: #283b4f;
+  width: 45%;
+  margin-left:47%;
+  height: 20px;
+  border: none;
+  outline: none;
+  background-color: #43fffe;
   border-radius:3px;
   margin-top:5px;
   text-align: center;
