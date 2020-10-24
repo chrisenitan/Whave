@@ -5,24 +5,26 @@
     </head>
     <body>
       <div id="main">
-      <img src="images/get_started16.png">
+      <img src="images/whave16.png">
       <p>Whave Theme Switcher<p>
 
-        <p>
-         ...is managing your WhatsApp Web Theme
-      </p>
+      <p class="hintText">...is managing your WhatsApp Web Theme</p>
 
-  
       <div id="nextSwitch"><span id="nextSwitchTime"></span><br><br>
         
+        <h class="hintText">Set custom times</h><br>
+        <input disabled type="number" max="24" min="0" placeholder="start" title="Hour in 24hr format">
+        <input disabled type="number" max="24" min="0" placeholder="stop" title="Hour in 24hr format"><br>
+        <button id="customTimeBtn">save</button><br>
 
-     Set a custom start time: <br>
-        <input type="text" placeholder="21:00"><br>
-        <button>save</button>
+        <h class="hintText">Manual Overide</h><br>
+        <button id="startDark">dark</button> 
+        <button id="startLight">light</button>
         <br>
-        </div>
 
-      <div class="web"></div>
+      </div>
+
+    <div class="web"></div>
     </div>
       <script src="theme.js"></script>
     </body>
