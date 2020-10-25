@@ -28,7 +28,7 @@ let switchTheme = (req) =>{
         }
     }
     else{
-       if (req.manual == "startLight") {
+       if(req.manual == "startLight") {
 		document.querySelector(".web").setAttribute("class", "web");
 		console.log(`Light mode manually triggered at ${stampTime}`);
 	   }
@@ -42,13 +42,13 @@ let switchTheme = (req) =>{
     }	
     }
     
-    //attach function to DOM
+    //attach switchTheme function to DOM
     window.addEventListener("click", function() {
     switchTheme()
-    });  
+    });
 	
 	/* 
-	get the current time
+	get the current time and populate tool bar menu
 	..need to set this .nextSwitchTime in DOM	
 	*/
     var time = new Date();
@@ -61,6 +61,7 @@ let switchTheme = (req) =>{
     }
     
    /*
+   //set a custom start and stop time
    document.getElementById('nextSwitch').addEventListener("click", function(){
     
         //considered using declarativeContent but no idea how sync works yet
@@ -70,13 +71,12 @@ let switchTheme = (req) =>{
                 {code: `switchTheme("test")`});
           });
     
-    }) */
+	}) 
+	*/
     
     
-    //start dark mode
+    //start dark mode manually
     document.getElementById('startDark').addEventListener("click", function(){
-    
-        //considered using declarativeContent but no idea how sync works yet
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             chrome.tabs.executeScript(
                 tabs[0].id,
@@ -87,14 +87,11 @@ let switchTheme = (req) =>{
 				switchTheme(req)
 				`});
           });
-    
     })
 	
 
-    //start light mode
+    //start light mode manually
     document.getElementById('startLight').addEventListener("click", function(){
-    
-        //considered using declarativeContent but no idea how sync works yet
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             chrome.tabs.executeScript(
                 tabs[0].id,
@@ -105,7 +102,6 @@ let switchTheme = (req) =>{
 				switchTheme(req)
 				`});
           });
-    
     })
 
     
