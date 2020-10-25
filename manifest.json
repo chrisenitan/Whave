@@ -1,7 +1,7 @@
 {
     "name": "Whave",
     "permissions": ["activeTab", "declarativeContent"],
-    "version": "1.0",
+    "version": "0.0.0.1",
     "description": "Switch between light and dark mode on your Whatsapp webapp based on a select time or right from the toolbar.",
     "background": {
         "scripts": ["background.js"],

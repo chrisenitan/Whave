@@ -2,6 +2,13 @@
 //https://developer.chrome.com/extensions/getstarted
 
 
+/* bug solution:
+if click was on whatsapp normal, add nothing extra to class
+else if it was on toolbar then add flaba and dark or noting and flaba
+then make sure you checkwen click is on whatsapp, check for if flaba was added, if so, then dont over ride. 
+
+for now user will have to refresh page to fix that behaviour though, or we add a refresh button later for this...
+ */
 let switchTheme = (req) =>{
 
 	//get the current time
@@ -47,10 +54,10 @@ let switchTheme = (req) =>{
     var time = new Date();
     let currentHour = time.getHours();    
     if(currentHour >= 20 || currentHour <= 7){
-        document.getElementById('nextSwitchTime').innerHTML="Light mode will begin at 7am";
+        document.getElementById('nextSwitchTime').innerHTML="Light mode begins at 7am";
     }
     else{
-        document.getElementById('nextSwitchTime').innerHTML="Dark mode will begin at 8pm";
+        document.getElementById('nextSwitchTime').innerHTML="Dark mode begins at 8pm";
     }
     
    /*
