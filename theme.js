@@ -17,23 +17,38 @@ let switchTheme = (req) =>{
 	var stampTime = `${hour}:${time.getMinutes()}`;
 
     if(req == undefined){
+
+		var checkOverride =  document.querySelector(".web").getAttribute("class")
         //This changes to dark mode from 8pm to 7am
         if(hour >= 20 || hour <= 7){
-        document.querySelector(".web").setAttribute("class", "web dark");
-        console.log(`Dark mode triggered at ${stampTime}`);
-        }
+			//check manual override
+			if(checkOverride == "web flaba"){
+				//do not change theme
+			}else{
+				//change theme
+				document.querySelector(".web").setAttribute("class", "web dark");
+				console.log(`Dark mode triggered at ${stampTime}`);
+			}
+		}
+		//req defined so try to set according to the time
         else{
-        document.querySelector(".web").setAttribute("class", "web");
-        console.log(`Light mode triggered at ${stampTime}`);
+			//check manual override
+			if(checkOverride == "web dark flaba"){
+				//do not change theme
+			}else{
+				document.querySelector(".web").setAttribute("class", "web");
+				console.log(`Light mode triggered at ${stampTime}`);
+			}
         }
-    }
+	}
+	//no req defined, must be manual override
     else{
        if(req.manual == "startLight") {
-		document.querySelector(".web").setAttribute("class", "web");
+		document.querySelector(".web").setAttribute("class", `web ${req.override}`);
 		console.log(`Light mode manually triggered at ${stampTime}`);
 	   }
 	   else if(req.manual == "startDark"){
-		document.querySelector(".web").setAttribute("class", "web dark");
+		document.querySelector(".web").setAttribute("class", `web dark ${req.override}`);
 		console.log(`Dark mode manually triggered at ${stampTime}`);
 	   }
 	   else{
@@ -82,7 +97,8 @@ let switchTheme = (req) =>{
                 tabs[0].id,
 				{code: `
 				var req = {
-					manual:"startDark"
+					manual:"startDark",
+					override: "flaba"
 				}
 				switchTheme(req)
 				`});
@@ -97,7 +113,8 @@ let switchTheme = (req) =>{
                 tabs[0].id,
 				{code: `
 				var req = {
-					manual:"startLight"
+					manual:"startLight",
+					override: "flaba"
 				}
 				switchTheme(req)
 				`});
