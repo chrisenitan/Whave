@@ -2,33 +2,34 @@
 //https://developer.chrome.com/extensions/getstarted
 
 
+//get the current time
+var time = new Date();
+let currentHour = time.getHours();   
+var stampTime = `${currentHour}:${time.getMinutes()}`;
+
 let switchTheme = (req) =>{
 
-	//get the current time
-	var time = new Date();
-	var hour = time.getHours();
-	var stampTime = `${hour}:${time.getMinutes()}`;
-
+	//req is defined: try to set according to the requested time
     if(req == undefined){
-
 		var checkOverride =  document.querySelector(".web").getAttribute("class")
         //This changes to dark mode from 8pm to 7am
-        if(hour >= 20 || hour <= 7){
-			//check manual override
+        if(currentHour >= 20 || currentHour <= 7){
+			//check for manual override
 			if(checkOverride == "web flaba"){
 				//do not change theme
 			}else{
-				//change theme
+				//change theme to darkmode
 				document.querySelector(".web").setAttribute("class", "web dark");
 				console.log(`Dark mode triggered at ${stampTime}`);
 			}
 		}
-		//req defined so try to set according to the time
+		//This changes to light mode from 8pm to 7am
         else{
-			//check manual override
+			//check for manual override
 			if(checkOverride == "web dark flaba"){
 				//do not change theme
 			}else{
+				//change theme to light mode
 				document.querySelector(".web").setAttribute("class", "web");
 				console.log(`Light mode triggered at ${stampTime}`);
 			}
@@ -57,10 +58,8 @@ let switchTheme = (req) =>{
 	
 	/* 
 	get the current time and populate tool bar menu
-	..need to set this .nextSwitchTime in DOM	
-	*/
-    var time = new Date();
-    let currentHour = time.getHours();    
+	...need to set this .nextSwitchTime in DOM to avoid log missing element error	
+	*/ 
     if(currentHour >= 20 || currentHour <= 7){
         document.getElementById('nextSwitchTime').innerHTML="Light mode begins at 7am";
     }
