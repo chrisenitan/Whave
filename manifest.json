@@ -2,13 +2,13 @@
     "name": "Whave",
     "permissions": ["activeTab", "declarativeContent"],
     "version": "1.0.1",
-    "description": "Switch between light and dark mode on your Whatsapp webapp based on a select time or right from the browser toolbar.",
+    "description": "Conveniently switch between light and dark mode on Whatsapp Web.",
     "background": {
         "scripts": ["background.js"],
         "persistent": false
       },
       "page_action": {
-        "default_title": "Whave for WhatsApp web theme",
+        "default_title": "Whave for WhatsApp Web",
         "default_popup": "home.html",
         "default_icon": {
             "16": "images/whave16.png",

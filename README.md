@@ -1,5 +1,5 @@
 # Whave
-A time based theme switcher for WhatsApp web
+A time and toolbar based theme switcher for WhatsApp web
 - Initial Gist at https://gist.github.com/chrisenitan/6142637e5a59cd412e15af058cde3f8f
 
 **Features**

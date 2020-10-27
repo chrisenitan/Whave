@@ -2,13 +2,6 @@
 //https://developer.chrome.com/extensions/getstarted
 
 
-/* bug solution:
-if click was on whatsapp normal, add nothing extra to class
-else if it was on toolbar then add flaba and dark or noting and flaba
-then make sure you checkwen click is on whatsapp, check for if flaba was added, if so, then dont over ride. 
-
-for now user will have to refresh page to fix that behaviour though, or we add a refresh button later for this...
- */
 let switchTheme = (req) =>{
 
 	//get the current time
