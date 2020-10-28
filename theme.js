@@ -28,8 +28,8 @@ let switchTheme = (req) =>{
         //This changes to dark mode from 8pm to 7am
         if(hour >= 20 || hour <= 7){
 			//check for manual override
-			if(checkOverride == "web flaba"){
-				//do not change theme
+			if(checkOverride == "web flaba" || checkOverride == "web dark flaba"){
+				//do not change theme if class was dark or not
 				console.log("Cannot change theme after manual override");
 			}else{
 				//change theme to darkmode
@@ -40,8 +40,8 @@ let switchTheme = (req) =>{
 		//This changes to light mode from 8pm to 7am
         else{
 			//check for manual override
-			if(checkOverride == "web dark flaba"){
-				//do not change theme
+			if(checkOverride == "web dark flaba" || checkOverride == "web flaba"){
+				//do not change theme if class was light or not
 				console.log("Cannot change theme after manual override");
 			}else{
 				//change theme to light mode
@@ -64,7 +64,22 @@ let switchTheme = (req) =>{
 		   //this should not happen for now
 	   }
     }	
-    }
+	}
+	
+	let resetTheme = () =>{
+		//get the current time
+		var time = new Date();
+		var currentHour = time.getHours();
+		//change theme back according to the time
+		if(currentHour >= 20 || currentHour <= 7){
+			document.querySelector(".web").setAttribute("class", "web dark");
+			console.log(`Reset to Dark mode as at ${currentHour}hr`);
+		}
+		else{
+			document.querySelector(".web").setAttribute("class", "web");
+			console.log(`Reset to Light mode as at ${currentHour}hr`);
+		}
+	}
     
     //attach switchTheme function to DOM
     window.addEventListener("click", function() {
@@ -114,7 +129,6 @@ let switchTheme = (req) =>{
           });
     })
 	
-
     //start light mode manually
     document.getElementById('startLight').addEventListener("click", function(){
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -127,6 +141,15 @@ let switchTheme = (req) =>{
 				}
 				switchTheme(req)
 				`});
+          });
+	})
+	
+	//start light mode manually
+    document.getElementById('resetMo').addEventListener("click", function(){
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.executeScript(
+                tabs[0].id,
+				{code: `resetTheme()`});
           });
     })
 
