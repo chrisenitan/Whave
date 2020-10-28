@@ -1,11 +1,10 @@
 # Whave
-A time and toolbar based theme switcher for WhatsApp web
+A browser extension for managing WhatsApp web theme. 
 - Initial Gist at https://gist.github.com/chrisenitan/6142637e5a59cd412e15af058cde3f8f
 
 **Features**
-1. Switch theme between day and night time
-2. Set custom time to theme changes
-3. Turn on and off theme manually
+1. Automatically switch theme between day and night time
+2. Switch between themes manually
 
 **Current**
 - Working version: Packed and unpacked Chrome extension

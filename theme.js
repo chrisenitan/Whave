@@ -1,19 +1,7 @@
 //https://github.com/chrisenitan/Whave
 //https://developer.chrome.com/extensions/getstarted
 
-/*
-to fix the reset issue:
-it turns oiut if user had dark mode, we check if flaba was set and if they were trying to set dark mode, we dont set it cus we found flaba even though it will not matter 
-but it will matter if they were trying to set to dark after overrideing light. then we will find flaba and we will not be able to swicth back to dark at night. 
 
-okay cus this meand the buttons become hard lined forevrr. 
-we should find a way tell the user about this behaviour
-...then give them a button to refresh overrides. 
-this button will check the time of the day and reset the class to light or dark based on that and allow them do normal swithc according to time from now on. 
-
-...all these for this iteration. ideally we should be making sure they can choose to eirthet override permannent or contiue tomorrow in the forst place 
-
-*/
 let switchTheme = (req) =>{
 //local var because we need this to be refreshed each time
 
