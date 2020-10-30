@@ -90,3 +90,14 @@ button:hover{
 #startDark:hover{
   background-color: #1c2b3c;
 }
+.links{
+  font-size: 11px;
+  color:#4df785;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.links:hover{
+  text-decoration: underline;
+  text-underline-position: under;
+}
