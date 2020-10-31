@@ -21,7 +21,8 @@ A browser extension for managing WhatsApp web theme.
 6. The 'Set custom times' feature is not yet released. Still working on that :)
 
 **FAQs**
-- Working version: Packed and unpacked Chrome extension
+- Theme is not changing at the right time: Please reload WhatsApp and click the reset button
+- 
 
 **Permissions**
 - Storage

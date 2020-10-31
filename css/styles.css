@@ -8,6 +8,9 @@ body{
     color: #fff;
     font-family: 'Calibri', 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 }
+a{
+  text-decoration: none;
+}
 img{
   width: 40px;
   height: auto;
