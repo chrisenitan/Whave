@@ -88,10 +88,10 @@ let switchTheme = (req) =>{
     }
     
    /*
-   //set a custom start and stop time
+   set a custom start and stop time
+Need to save this value in storage but still reading on how that works and if we really need that permission to do this. 
    document.getElementById('nextSwitch').addEventListener("click", function(){
     
-        //considered using declarativeContent but no idea how sync works yet
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             chrome.tabs.executeScript(
                 tabs[0].id,

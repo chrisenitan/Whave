@@ -22,13 +22,14 @@ A browser extension for managing WhatsApp web theme.
 
 **FAQs**
 - Theme is not changing at the right time: Please reload WhatsApp and click the reset button
-- 
+- Does this sync across my devices: Sort of, settings will not apply across devices but the extension can be re-installed and used anywhere supported
 
 **Permissions**
 - Storage
 - ActiveTab
 - DeclarativeContent<br>
-Whave only runs in a tab to change the website theme. Storage access is used to save and remember your preferred theme settings. 
+Whave only runs in a tab to change the website theme. Storage access is used to save and remember your preferred theme settings.<br> 
+WhatsApp is a trademark of Facebook. Android is a trademark of Google Inc. Use of this trademarks and services is subject to respective Permissions.
 
 **Developers**<br>
 The project is available on Github if you want to have some fun and collaborate on this and other projects. Find repository at <a href="https://github.com/chrisenitan/Whave" target="_blank">Github-Whave</a>
