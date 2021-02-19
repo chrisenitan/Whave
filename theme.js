@@ -1,5 +1,6 @@
 //https://github.com/chrisenitan/Whave
 //https://developer.chrome.com/extensions/getstarted
+//updates https://developer.chrome.com/webstore/update 
 
 
 let switchTheme = (req) =>{
