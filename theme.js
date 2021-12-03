@@ -4,7 +4,6 @@
 
 let switchTheme = (req) => {
   //local var because we need this to be refreshed each time
-
   //get the current time
   var time = new Date()
   var hour = time.getHours()
@@ -128,7 +127,7 @@ document.getElementById("startLight").addEventListener("click", function () {
 })
 
 //reset modes and start light mode manually
-document.getElementById("resetMo").addEventListener("click", function () {
+document.getElementById("resetThemes").addEventListener("click", function () {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.scripting.executeScript({
       target: { tabId: tabs[0].id },
