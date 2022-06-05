@@ -14,4 +14,4 @@ Most applications offer 3 theme modes: Dark, Light and System. I always am on th
 **Planned**
 - Support custom start and end time for theme switches
 - Support Firefox
-- If you would like to extend this accross other apps and services, please reach out and we can work on something together. Even if its writing a petition.... 😄
+- Please use the issues tab for any suggestions and/or feel free to fork and make changes and share ;) 
