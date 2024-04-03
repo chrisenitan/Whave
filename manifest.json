@@ -1,7 +1,7 @@
 {
   "name": "Whave",
   "permissions": ["activeTab", "declarativeContent", "scripting"],
-  "version": "1.04",
+  "version": "1.05",
   "manifest_version": 3,
   "description": "Conveniently switch between light and dark themes on Whatsapp Web.",
   "background": {

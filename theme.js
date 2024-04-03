@@ -2,6 +2,7 @@
 //https://developer.chrome.com/extensions/getstarted
 //updates https://developer.chrome.com/webstore/update
 
+
 let switchTheme = (req) => {
   //local var because we need this to be refreshed each time
   //get the current time
@@ -11,7 +12,7 @@ let switchTheme = (req) => {
 
   //req is defined: try to set according to the requested time
   if (req == undefined) {
-    var checkOverride = document.querySelector(".web").getAttribute("class")
+    var checkOverride = document.body.getAttribute("class")
     //This changes to dark mode from 8pm to 7am
     if (hour >= 20 || hour <= 7) {
       //check for manual override
@@ -20,7 +21,7 @@ let switchTheme = (req) => {
         console.log("Cannot change theme after manual override")
       } else {
         //change theme to darkmode
-        document.querySelector(".web").setAttribute("class", "web dark")
+        document.body.classList.add('dark')
         console.log(`Dark mode triggered at ${stampTime}`)
       }
     }
@@ -32,7 +33,7 @@ let switchTheme = (req) => {
         console.log("Cannot change theme after manual override")
       } else {
         //change theme to light mode
-        document.querySelector(".web").setAttribute("class", "web")
+		document.body.classList.remove('dark')
         console.log(`Light mode triggered at ${stampTime}`)
       }
     }
@@ -40,10 +41,10 @@ let switchTheme = (req) => {
   //no req defined, must be manual override
   else {
     if (req.manual == "startLight") {
-      document.querySelector(".web").setAttribute("class", `web ${req.override}`)
+      document.body.classList.remove("dark")
       console.log(`Light mode manually triggered at ${stampTime}`)
     } else if (req.manual == "startDark") {
-      document.querySelector(".web").setAttribute("class", `web dark ${req.override}`)
+      document.body.classList.add("dark")
       console.log(`Dark mode manually triggered at ${stampTime}`)
     } else {
       //this should not happen for now
@@ -57,10 +58,10 @@ let resetTheme = () => {
   var currentHour = time.getHours()
   //change theme back according to the time
   if (currentHour >= 20 || currentHour <= 7) {
-    document.querySelector(".web").setAttribute("class", "web dark")
+    document.body.classList.add("dark")
     console.log(`Reset to Dark mode as at ${currentHour}hr`)
   } else {
-    document.querySelector(".web").setAttribute("class", "web")
+    document.body.classList.remove("dark")
     console.log(`Reset to Light mode as at ${currentHour}hr`)
   }
 }
