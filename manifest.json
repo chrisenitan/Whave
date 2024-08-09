@@ -1,5 +1,5 @@
 {
-  "name": "Whave",
+  "name": "Whave Whatsapp theme switcher",
   "permissions": ["activeTab", "declarativeContent", "scripting"],
   "version": "1.05",
   "manifest_version": 3,
