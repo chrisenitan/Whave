@@ -1,7 +1,7 @@
 {
   "name": "Auto Dark",
   "permissions": ["activeTab", "declarativeContent", "scripting"],
-  "version": "1.05",
+  "version": "1.06",
   "manifest_version": 3,
   "description": "Conveniently switch between light and dark themes on Whatsapp Web.",
   "background": {
