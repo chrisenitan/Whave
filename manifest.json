@@ -1,5 +1,5 @@
 {
-  "name": "Auto Dark",
+  "name": "Auto Dark for WhatsApp Web",
   "permissions": ["activeTab", "declarativeContent", "scripting"],
   "version": "1.06",
   "manifest_version": 3,
