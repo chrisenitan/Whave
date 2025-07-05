@@ -33,11 +33,9 @@ let isNightRule = (currentHour) => {
 
 function darkTheme({ msg = "" }) {
   document.body.classList.add("dark")
-  //sidebar header
   document.querySelectorAll(uiSelectors.sidebarHead).forEach((node) => {
     node.style.backgroundColor = "#161717"
   })
-  //text
   document.querySelectorAll(uiSelectors.dialogTexts).forEach((node) => {
     node.style.color = "#ffffff99"
   })
@@ -95,7 +93,7 @@ let switchTheme = (req) => {
     if (req.manual == "startLight") {
       lightTheme({ msg: `Light mode manually triggered at ${stampTime}` })
     } else if (req.manual == "startDark") {
-      darkTheme(`Dark mode manually triggered at ${stampTime}`)
+      darkTheme({ msg: `Dark mode manually triggered at ${stampTime}` })
     } else {
       //this should not happen for now
     }
@@ -111,11 +109,9 @@ let resetTheme = () => {
   var currentHour = time.getHours()
   //change theme back according to the time
   if (isNightRule(currentHour)) {
-    darkTheme()
-    log(`Reset to Dark mode as at ${currentHour}hr`)
+    darkTheme({ msg: `Reset to Dark mode as at ${currentHour}hr` })
   } else {
-    lightTheme()
-    log(`Reset to Light mode as at ${currentHour}hr`)
+    lightTheme({ msg: `Reset to Light mode as at ${currentHour}hr` })
   }
 }
 
