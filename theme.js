@@ -3,6 +3,11 @@
 //updates https://developer.chrome.com/webstore/update
 //storage api https://developer.chrome.com/docs/extensions/reference/api/storage#property-local
 
+const uiSelectors = {
+  sidebarHead: ".x1280gxy",
+  dialogTexts: "._asi6",
+}
+
 /* 
 	get the current time and populate tool bar menu
 	...need to set this .nextSwitchTime in DOM to avoid log missing element error	
@@ -15,7 +20,7 @@ if (currentHour >= 20 || currentHour <= 7) {
   document.getElementById("nextSwitchTime").innerHTML = "Dark mode begins at 8pm"
 }
 
-let log = (a) => {
+function log(a) {
   console.log({ msg: a, time: new Date(), service: "Whatsapp theme manager" })
 }
 
@@ -26,13 +31,36 @@ let isNightRule = (currentHour) => {
   return currentHour >= 20 || currentHour <= 7
 }
 
+function darkTheme({ msg = "" }) {
+  document.body.classList.add("dark")
+  //sidebar header
+  document.querySelectorAll(uiSelectors.sidebarHead).forEach((node) => {
+    node.style.backgroundColor = "#161717"
+  })
+  //text
+  document.querySelectorAll(uiSelectors.dialogTexts).forEach((node) => {
+    node.style.color = "#ffffff99"
+  })
+  log(msg)
+}
+
+function lightTheme({ msg = "" }) {
+  document.body.classList.remove("dark")
+  document.querySelectorAll(uiSelectors.sidebarHead).forEach((node) => {
+    node.style.backgroundColor = "#ffffff"
+  })
+  document.querySelectorAll(uiSelectors.dialogTexts).forEach((node) => {
+    node.style.color = "#00000099"
+  })
+  log(msg)
+}
+
 let switchTheme = (req) => {
   //local var because we need this to be refreshed each time
   //get the current time
   var time = new Date()
   var hour = time.getHours()
   var stampTime = `${hour}:${time.getMinutes()}`
-
   //req is defined: try to set according to the requested time
   if (req == undefined) {
     var checkOverride = document.body.getAttribute("class")
@@ -43,9 +71,7 @@ let switchTheme = (req) => {
         //do not change theme if class was dark or not
         log("Cannot change theme after manual override")
       } else {
-        //change theme to darkmode
-        document.body.classList.add("dark")
-        log(`Dark mode triggered at ${stampTime}`)
+        darkTheme({ msg: `Dark mode triggered at ${time}` })
       }
     }
     //This changes to light mode from 8pm to 7am
@@ -55,9 +81,7 @@ let switchTheme = (req) => {
         //do not change theme if class was light or not
         log("Cannot change theme after manual override")
       } else {
-        //change theme to light mode
-        document.body.classList.remove("dark")
-        log(`Light mode triggered at ${stampTime}`)
+        lightTheme({ msg: `Light mode triggered at ${time}` })
       }
     }
   }
@@ -66,14 +90,12 @@ let switchTheme = (req) => {
   else {
     let manualTheme = req.manual || "system"
     chrome.storage.sync.set({ manualTheme }).then(() => {
-      log({ msg: `current theme manually set to ${manualTheme}` })
+      log(`current theme manually set to ${manualTheme}`)
     })
     if (req.manual == "startLight") {
-      document.body.classList.remove("dark")
-      log(`Light mode manually triggered at ${stampTime}`)
+      lightTheme({ msg: `Light mode manually triggered at ${stampTime}` })
     } else if (req.manual == "startDark") {
-      document.body.classList.add("dark")
-      log(`Dark mode manually triggered at ${stampTime}`)
+      darkTheme(`Dark mode manually triggered at ${stampTime}`)
     } else {
       //this should not happen for now
     }
@@ -89,10 +111,10 @@ let resetTheme = () => {
   var currentHour = time.getHours()
   //change theme back according to the time
   if (isNightRule(currentHour)) {
-    document.body.classList.add("dark")
+    darkTheme()
     log(`Reset to Dark mode as at ${currentHour}hr`)
   } else {
-    document.body.classList.remove("dark")
+    lightTheme()
     log(`Reset to Light mode as at ${currentHour}hr`)
   }
 }
