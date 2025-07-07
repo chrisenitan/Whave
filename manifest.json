@@ -1,7 +1,7 @@
 {
   "name": "WhatsApp theme manager",
   "permissions": ["activeTab", "declarativeContent", "scripting", "storage"],
-  "version": "1.07",
+  "version": "1.08",
   "manifest_version": 3,
   "description": "Conveniently switch between light and dark themes on Whatsapp Web.",
   "background": {

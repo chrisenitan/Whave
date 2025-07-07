@@ -2,7 +2,6 @@
 
 A browser extension for managing WhatsApp web theme.
 
-- [Initial Git Gist](https://gist.github.com/chrisenitan/6142637e5a59cd412e15af058cde3f8f)
 - [Extension on Google Chrome Store](https://chrome.google.com/webstore/detail/whave/onmmaefeecidiliagmmbelkaeicmaang?utm_source=chrome-ntp-icon)
 
 **Why**
@@ -22,3 +21,4 @@ Most applications offer 3 primary theme modes: Dark, Light and System, System al
 - Support custom and predefined themes
 - Support Firefox
 - Please use the issues tab for any suggestions and/or feel free to fork and make changes and share
+  - [Initial Git Gist](https://gist.github.com/chrisenitan/6142637e5a59cd412e15af058cde3f8f)

@@ -3,9 +3,29 @@
 //updates https://developer.chrome.com/webstore/update
 //storage api https://developer.chrome.com/docs/extensions/reference/api/storage#property-local
 
+function log(a) {
+  console.log({ msg: a, time: new Date(), service: "Whatsapp theme manager" })
+}
+
+const colors = {
+  darkBg: "#161717",
+  whiteTxt: "#ffffff99",
+  whiteBg: "#ffffff",
+  darkTxt: "#00000099",
+}
+
 const uiSelectors = {
   sidebarHead: ".x1280gxy",
   dialogTexts: "._asi6",
+  chatMenu: ".x1o2sk6j",
+  selectTexts: "selectable-text",
+}
+
+/**
+ * Determines time bound for theme used from system.
+ */
+function isNightRule(currentHour) {
+  return currentHour >= 20 || currentHour <= 7
 }
 
 /* 
@@ -14,41 +34,38 @@ const uiSelectors = {
 	*/
 var time = new Date()
 let currentHour = time.getHours()
-if (currentHour >= 20 || currentHour <= 7) {
-  document.getElementById("nextSwitchTime").innerHTML = "Light mode begins at 7am"
+if (isNightRule(currentHour)) {
+  if (document.getElementById("nextSwitchTime")) document.getElementById("nextSwitchTime").innerHTML = "Light mode begins at 7am"
 } else {
-  document.getElementById("nextSwitchTime").innerHTML = "Dark mode begins at 8pm"
-}
-
-function log(a) {
-  console.log({ msg: a, time: new Date(), service: "Whatsapp theme manager" })
-}
-
-/**
- * Determines time bound for theme used from system.
- */
-let isNightRule = (currentHour) => {
-  return currentHour >= 20 || currentHour <= 7
+  if (document.getElementById("nextSwitchTime")) document.getElementById("nextSwitchTime").innerHTML = "Dark mode begins at 8pm"
 }
 
 function darkTheme({ msg = "" }) {
   document.body.classList.add("dark")
+  localStorage.setItem("theme", '"dark"')
   document.querySelectorAll(uiSelectors.sidebarHead).forEach((node) => {
-    node.style.backgroundColor = "#161717"
+    node.style.backgroundColor = colors.darkBg
   })
-  document.querySelectorAll(uiSelectors.dialogTexts).forEach((node) => {
-    node.style.color = "#ffffff99"
+  Array.from(document.getElementsByTagName("header")).forEach((node) => {
+    node.style.backgroundColor = colors.darkBg
+  })
+  document.querySelectorAll(`${uiSelectors.chatMenu}, ${uiSelectors.selectTexts}, ${uiSelectors.dialogTexts}`).forEach((node) => {
+    node.style.color = colors.whiteTxt
   })
   log(msg)
 }
 
 function lightTheme({ msg = "" }) {
   document.body.classList.remove("dark")
+  localStorage.setItem("theme", '"light"')
   document.querySelectorAll(uiSelectors.sidebarHead).forEach((node) => {
-    node.style.backgroundColor = "#ffffff"
+    node.style.backgroundColor = colors.whiteBg
   })
-  document.querySelectorAll(uiSelectors.dialogTexts).forEach((node) => {
-    node.style.color = "#00000099"
+  Array.from(document.getElementsByTagName("header")).forEach((node) => {
+    node.style.backgroundColor = colors.whiteBg
+  })
+  document.querySelectorAll(`${uiSelectors.selectTexts}, ${uiSelectors.dialogTexts}, ${uiSelectors.chatMenu}`).forEach((node) => {
+    node.style.color = colors.darkTxt
   })
   log(msg)
 }
@@ -92,8 +109,12 @@ let switchTheme = (req) => {
     })
     if (req.manual == "startLight") {
       lightTheme({ msg: `Light mode manually triggered at ${stampTime}` })
+      //we need a reload to be perfect but not sure if this would impact the UX in a bad way
+      // location.reload()
     } else if (req.manual == "startDark") {
       darkTheme({ msg: `Dark mode manually triggered at ${stampTime}` })
+      //we need a reload to be perfect but not sure if this would impact the UX in a bad way
+      // location.reload()
     } else {
       //this should not happen for now
     }
@@ -119,47 +140,49 @@ let resetTheme = () => {
 window.addEventListener("click", function () {
   chrome.storage.sync.get(["manualTheme"]).then((result) => {
     const { manualTheme } = result
-    if (!manualTheme) return switchTheme()
-    if (!["startDark", "startLight"].includes(manualTheme)) switchTheme()
+    if (!manualTheme || !["startDark", "startLight"].includes(manualTheme)) return switchTheme()
   })
 })
 
-//button: start dark mode manually
-document.getElementById("startDark").addEventListener("click", function () {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    var req = {
-      manual: "startDark",
-      override: "flaba",
-    }
-    chrome.scripting.executeScript({
-      target: { tabId: tabs[0].id },
-      func: switchTheme,
-      args: [req],
+// button: start dark mode manually
+if (document.getElementById("startDark"))
+  document.getElementById("startDark").addEventListener("click", function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var req = {
+        manual: "startDark",
+        override: "flaba",
+      }
+      chrome.scripting.executeScript({
+        target: { tabId: tabs[0].id },
+        func: switchTheme,
+        args: [req],
+      })
     })
   })
-})
 
 //button: start light mode manually
-document.getElementById("startLight").addEventListener("click", function () {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    var req = {
-      manual: "startLight",
-      override: "flaba",
-    }
-    chrome.scripting.executeScript({
-      target: { tabId: tabs[0].id },
-      func: switchTheme,
-      args: [req],
+if (document.getElementById("startLight"))
+  document.getElementById("startLight").addEventListener("click", function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var req = {
+        manual: "startLight",
+        override: "flaba",
+      }
+      chrome.scripting.executeScript({
+        target: { tabId: tabs[0].id },
+        func: switchTheme,
+        args: [req],
+      })
     })
   })
-})
 
 //button: reset modes
-document.getElementById("resetThemes").addEventListener("click", function () {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.scripting.executeScript({
-      target: { tabId: tabs[0].id },
-      func: resetTheme,
+if (document.getElementById("resetThemes"))
+  document.getElementById("resetThemes").addEventListener("click", function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.scripting.executeScript({
+        target: { tabId: tabs[0].id },
+        func: resetTheme,
+      })
     })
   })
-})
