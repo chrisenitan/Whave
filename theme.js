@@ -3,22 +3,29 @@
 //updates https://developer.chrome.com/webstore/update
 //storage api https://developer.chrome.com/docs/extensions/reference/api/storage#property-local
 
-function log(a) {
-  console.log({ msg: a, time: new Date(), service: "Whatsapp theme manager" })
-}
-
-const colors = {
+const domColor = {
   darkBg: "#161717",
   whiteTxt: "#ffffff99",
   whiteBg: "#ffffff",
   darkTxt: "#00000099",
 }
 
-const uiSelectors = {
+const domClass = {
   sidebarHead: ".x1280gxy",
   dialogTexts: "._asi6",
   chatMenu: ".x1o2sk6j",
-  selectTexts: "selectable-text",
+  selectTexts: ".selectable-text",
+}
+
+function log(a) {
+  console.log({ msg: a, time: new Date(), service: "Whatsapp theme manager" })
+}
+
+/**
+ * https://developer.chrome.com/docs/extensions/develop/ui#popups
+ */
+function isInPopUp() {
+  return document.getElementById("startDark") && true
 }
 
 /**
@@ -34,23 +41,25 @@ function isNightRule(currentHour) {
 	*/
 var time = new Date()
 let currentHour = time.getHours()
-if (isNightRule(currentHour)) {
-  if (document.getElementById("nextSwitchTime")) document.getElementById("nextSwitchTime").innerHTML = "Light mode begins at 7am"
-} else {
-  if (document.getElementById("nextSwitchTime")) document.getElementById("nextSwitchTime").innerHTML = "Dark mode begins at 8pm"
+if (isInPopUp()) {
+  if (isNightRule(currentHour)) {
+    document.getElementById("nextSwitchTime").innerHTML = "Light mode begins at 7am"
+  } else {
+    document.getElementById("nextSwitchTime").innerHTML = "Dark mode begins at 8pm"
+  }
 }
 
 function darkTheme({ msg = "" }) {
   document.body.classList.add("dark")
   localStorage.setItem("theme", '"dark"')
-  document.querySelectorAll(uiSelectors.sidebarHead).forEach((node) => {
-    node.style.backgroundColor = colors.darkBg
+  document.querySelectorAll(domClass.sidebarHead).forEach((node) => {
+    node.style.backgroundColor = domColor.darkBg
   })
   Array.from(document.getElementsByTagName("header")).forEach((node) => {
-    node.style.backgroundColor = colors.darkBg
+    node.style.backgroundColor = domColor.darkBg
   })
-  document.querySelectorAll(`${uiSelectors.chatMenu}, ${uiSelectors.selectTexts}, ${uiSelectors.dialogTexts}`).forEach((node) => {
-    node.style.color = colors.whiteTxt
+  document.querySelectorAll(`${domClass.chatMenu}, ${domClass.selectTexts}, ${domClass.dialogTexts}`).forEach((node) => {
+    node.style.color = domColor.whiteTxt
   })
   log(msg)
 }
@@ -58,14 +67,14 @@ function darkTheme({ msg = "" }) {
 function lightTheme({ msg = "" }) {
   document.body.classList.remove("dark")
   localStorage.setItem("theme", '"light"')
-  document.querySelectorAll(uiSelectors.sidebarHead).forEach((node) => {
-    node.style.backgroundColor = colors.whiteBg
+  document.querySelectorAll(domClass.sidebarHead).forEach((node) => {
+    node.style.backgroundColor = domColor.whiteBg
   })
   Array.from(document.getElementsByTagName("header")).forEach((node) => {
-    node.style.backgroundColor = colors.whiteBg
+    node.style.backgroundColor = domColor.whiteBg
   })
-  document.querySelectorAll(`${uiSelectors.selectTexts}, ${uiSelectors.dialogTexts}, ${uiSelectors.chatMenu}`).forEach((node) => {
-    node.style.color = colors.darkTxt
+  document.querySelectorAll(`${domClass.selectTexts}, ${domClass.dialogTexts}, ${domClass.chatMenu}`).forEach((node) => {
+    node.style.color = domColor.darkTxt
   })
   log(msg)
 }
@@ -144,8 +153,8 @@ window.addEventListener("click", function () {
   })
 })
 
-// button: start dark mode manually
-if (document.getElementById("startDark"))
+if (isInPopUp()) {
+  // button: start dark mode manually
   document.getElementById("startDark").addEventListener("click", function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       var req = {
@@ -160,8 +169,7 @@ if (document.getElementById("startDark"))
     })
   })
 
-//button: start light mode manually
-if (document.getElementById("startLight"))
+  //button: start light mode manually
   document.getElementById("startLight").addEventListener("click", function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       var req = {
@@ -176,8 +184,7 @@ if (document.getElementById("startLight"))
     })
   })
 
-//button: reset modes
-if (document.getElementById("resetThemes"))
+  //button: reset modes
   document.getElementById("resetThemes").addEventListener("click", function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.scripting.executeScript({
@@ -186,3 +193,4 @@ if (document.getElementById("resetThemes"))
       })
     })
   })
+}
