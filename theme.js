@@ -24,14 +24,14 @@ function log(a) {
 /**
  * https://developer.chrome.com/docs/extensions/develop/ui#popups
  */
-function isInPopUp() {
-  return document.getElementById("startDark") && true
+function isPopMenuOpen() {
+  return !!document.getElementById("startDark")
 }
 
 /**
  * Determines time bound for theme used from system.
  */
-function isNightRule(currentHour) {
+function isNightTime(currentHour) {
   return currentHour >= 20 || currentHour <= 7
 }
 
@@ -41,8 +41,8 @@ function isNightRule(currentHour) {
 	*/
 var time = new Date()
 let currentHour = time.getHours()
-if (isInPopUp()) {
-  if (isNightRule(currentHour)) {
+if (isPopMenuOpen()) {
+  if (isNightTime(currentHour)) {
     document.getElementById("nextSwitchTime").innerHTML = "Light mode begins at 7am"
   } else {
     document.getElementById("nextSwitchTime").innerHTML = "Dark mode begins at 8pm"
@@ -89,7 +89,7 @@ let switchTheme = (req) => {
   if (req == undefined) {
     var checkOverride = document.body.getAttribute("class")
     //This changes to dark mode from 8pm to 7am
-    if (isNightRule(hour)) {
+    if (isNightTime(hour)) {
       //check for manual override
       if (checkOverride == "web flaba" || checkOverride == "web dark flaba") {
         //do not change theme if class was dark or not
@@ -138,7 +138,7 @@ let resetTheme = () => {
   var time = new Date()
   var currentHour = time.getHours()
   //change theme back according to the time
-  if (isNightRule(currentHour)) {
+  if (isNightTime(currentHour)) {
     darkTheme({ msg: `Reset to Dark mode as at ${currentHour}hr` })
   } else {
     lightTheme({ msg: `Reset to Light mode as at ${currentHour}hr` })
@@ -153,7 +153,7 @@ window.addEventListener("click", function () {
   })
 })
 
-if (isInPopUp()) {
+if (isPopMenuOpen()) {
   // button: start dark mode manually
   document.getElementById("startDark").addEventListener("click", function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {

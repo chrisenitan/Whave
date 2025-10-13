@@ -1,4 +1,4 @@
-# WhatsApp Theme Manager- Whave
+# WhatsApp Theme Manager
 
 A browser extension for managing WhatsApp web theme.
 
